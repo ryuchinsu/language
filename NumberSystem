@@ -1,0 +1,38 @@
+def convert(nn, base):
+    T = "0123456789ABCDEF"
+    q, r = divmod(nn, base)
+    if q == 0:
+        return T[r]
+    else:
+        return convert(q, base) + T[r]
+
+n = 16 #진수
+t = 16 #말하는숫자
+m = 2 #참가자수
+p = 2 #순서
+
+num = 0
+order = 0
+answer = ''
+numStr =''
+
+
+while True:
+
+    numStr = convert(num, n)
+    for x in numStr:
+        order+=1
+        if order%m == m-p:
+            answer+=x
+            if len(answer) == t:
+                break
+    num+=1
+    if len(answer) == t:
+        break
+
+print(answer)
+
+
+
+
+
