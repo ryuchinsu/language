@@ -1,0 +1,54 @@
+import re
+#str1, str2 = 'aa1+aa2', 'AAAA12'
+str1, str2 = 'E=M*C^2', 'e=m*c^2'
+
+pttn = re.compile('[a-zA-Z][a-zA-Z]')
+
+arr1,arr2 = [],[]
+for i in range(len(str1)-1):
+    if pttn.search(str1[i:i+2]):
+        arr1.append(str1[i:i+2].upper())
+for i in range(len(str2)-1):
+    if pttn.search(str2[i:i+2]):
+        arr2.append(str2[i:i+2].upper())
+
+print(arr1)
+print(arr2)
+
+dic1, dic2 = {},{}
+for ch in arr1:
+    if ch not in dic1:
+        dic1[ch] = 1
+    else:
+        dic1[ch]+=1
+
+for ch in arr2:
+    if ch not in dic2:
+        dic2[ch] = 1
+    else:
+        dic2[ch]+=1
+
+print(dic1,dic2)
+
+set1 = set()
+
+for i in dic1:
+    set1.add(i)
+for i in dic2:
+    set1.add(i)
+
+min1,max1 = 0,0
+
+for w1 in set1:
+    if w1 in dic1 and w1 in dic2:
+        min1+= min(dic1[w1],dic2[w1])
+        max1+= max(dic1[w1],dic2[w1])
+    elif w1 not in dic1 and w1 in dic2:
+        max1+=dic2[w1]
+    else:
+        max1+=dic1[w1]
+
+print(min1,max1)
+
+answer = 0 if max1==0 else int(min1 / max1 * 65536)
+print(answer)
