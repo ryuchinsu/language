@@ -1,0 +1,43 @@
+import re
+def solution(files):
+    a = sorted(files, key=lambda file : int(re.findall('\d+', file)[0]))
+    b = sorted(a, key=lambda file : re.split('\d+', file.lower())[0])
+    return b
+    
+#############################################################################    
+    
+import re
+files = ['F-5 Freedom Fighter', 'B-50 Superfortress', 'A-10 Thunderbolt II', 'F-14 Tomcat']
+
+#print(files)
+pttrn = re.compile('([\D]+)(\d+)(.*)')
+pttrn2 = re.compile('[1-9]\d*')
+
+
+dic =[]
+
+for i,file in enumerate(files):
+    xx = pttrn.findall(file)
+    yy = []
+    yy.append(file)
+    yy.append(i)
+    yy.append((xx[0][0].upper()))
+    nn = pttrn2.findall(xx[0][1])
+    yy.append(int(nn[0]))
+    yy.append(xx[0][2])
+    dic.append(yy)
+#print(dic)
+
+#dic = sorted(dic, key=lambda dic: dic[1])  # 4순위
+
+# dic = sorted(dic, key=lambda dic: dic[4])  # 3순위
+# print(dic)
+dic = sorted(dic, key=lambda dic: dic[3])  # 2순위
+# print(dic)
+dic = sorted(dic, key=lambda dic: dic[2])  # 1순위
+# print(dic)
+
+answer = []
+for i in dic:
+    answer.append(i[0])
+print(answer)
